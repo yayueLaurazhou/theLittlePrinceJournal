@@ -1,20 +1,16 @@
-import {notes} from "../notes"
-
-
-
-export default function Note(){
+export default function Note({posts}){
     return( 
         <>
     <div class="container mx-auto mt-3">
-        {notes?.map((note, i) => (
+        {posts?.map((post, i) => (
             <div key={i} class="h-64 bg-white flex flex-col justify-between dark:border-gray-700 rounded-lg border border-gray-400 mb-6 py-5 px-4">
                 <div class="flex flex-nowraps justify-between">
-                    <h4 class="font-bold mb-3">{note?.title}</h4>
-                    <h3>{note?.pinned && '📌'}</h3>
+                    <h4 class="font-bold mb-3">{post?.title}</h4>
+                    <h3>{post?.pinned && '📌'}</h3>
                 </div>
                 <div class="flex justify-between">
                     <div class="flex flex-nowrap">
-                        {note.tags?.map((tag, i) => (
+                        {post.tags?.map((tag, i) => (
                         <div class="mb-3 border border-gray-800 rounded-full px-3 py-1 mr-2 text-xs flex items-center justify-center">
                             <p>{tag}</p>
                         </div>

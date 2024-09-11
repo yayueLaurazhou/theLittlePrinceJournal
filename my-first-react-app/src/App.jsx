@@ -1,17 +1,54 @@
 import Note from "./note";
+import {notes} from "../notes"
 import SideBar from "./sidebar";
 import NavBar from "./navbar";
 import {useState, useEffect} from "react";
+import { tags } from "../notes";
 import "./index.css";
 
 
 function App() {
-  const [isDark, setIsDark] = useState(false)
-  // const [isEdit]
+  const [isDark, setIsDark] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(notes);
+
+  function filterAndSearchItems() {
+    let filteredItems = notes;
+
+    if (selectedFilters.length > 0) {
+      filteredItems = filteredItems.filter((note) => 
+        note.tags.some((tag) => selectedFilters.includes(tag)));
+    }
+  
+    if (searchQuery.length > 0) {
+      filteredItems = filteredItems.filter((note) =>
+        `${note.title} ${note.body}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    setFilteredItems(filteredItems);
+  }
+
+
+  const handleFilterButtonClick = (selectedCategory) => {
+      if (selectedFilters.includes(selectedCategory)) {
+        let filters = selectedFilters.filter((el) => el !== selectedCategory);
+        setSelectedFilters(filters);
+      } else {
+        setSelectedFilters([...selectedFilters, selectedCategory]);
+      }
+  };
+
+  useEffect(() => {
+    filterAndSearchItems();
+  }, [selectedFilters, searchQuery, notes]);
 
   const toggleDark = () => {
     setIsDark(isDark ? false : true)
-  }
+  };
 
   useEffect( 
     function(){
@@ -29,12 +66,12 @@ function App() {
         <SideBar/>
         <main>
           <NavBar/>
-          <Note/>
+          <Note posts={filteredItems}/>
         </main>
         <aside>
-          <SearchBar/>
-          <TagsFilter/>
           <DarkModeButton isDark={isDark} toggleDark={toggleDark}/>
+          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+          <TagsFilter tags={tags} handleFilterButtonClick={handleFilterButtonClick} selectedFilters={selectedFilters}/>
         </aside>
       </section>
       
@@ -43,26 +80,33 @@ function App() {
 }
 
 
-function SearchBar(){
+function SearchBar({searchQuery, setSearchQuery}){
   return (
     <div class="pt-2 relative mx-auto text-gray-600">
       <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-        type="search" name="search" placeholder="Search"/>
-      <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+        type="search" name="search" placeholder="Search" value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}/>
+      {/* <button type="submit" class="top-0 mt-5 mr-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
-      </button>
+      </button> */}
     </div>
   );
 }
 
 
-function TagsFilter(){
+function TagsFilter({tags, handleFilterButtonClick, selectedFilters}){
   return(
-    <div class="ml-4 text-xs inline-flex items-center font-bold leading-sm px-3 py-1 bg-green-200 text-green-700 rounded-full">
-      Tag
-    </div>
+    <>
+    {tags?.map((tag, idx) => (
+       <button className={`my-4 text-xs inline-flex items-center font-bold leading-sm px-5 py-2 bg-green-200 text-black-700 rounded-full hover:shadow-lg ${
+        selectedFilters?.includes(tag.name) ? "bg-orange-400" : ""}`} onClick={() => handleFilterButtonClick(tag.name)} key={`filters-${idx}`}>
+        {tag.name}
+       </button>
+    ))}
+    </>
+
   );
 }
 

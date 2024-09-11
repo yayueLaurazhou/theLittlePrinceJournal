@@ -41,6 +41,7 @@ const tags = [
       id: 'e0196fd9-d644-4ca8-aa58-467b8082993e',
       title:
         'How Strings are Indexed',
+      body: "String are very very important",  
       tags: ['personal', 'development'],
       category: "folder1",
       pinned: false
@@ -49,6 +50,7 @@ const tags = [
       id: '6a2923a6-8fed-4277-9286-49125c91d876',
       title:
         "Writing a Simple MVC App in Plain JavaScript",
+      body: "MVC is a structure used to...",
       created: '2019-10-14T17:01:39-05:00',
       lastUpdated: '2019-10-14T17:01:49-05:00',
       tags: ['development'],
@@ -59,6 +61,7 @@ const tags = [
       id: 'a4c5ea72-34ed-496d-aa90-096df7e1ffbd',
       title:
         "I wanted to create and host a Node server",
+      body: "This is a project I have been thinking for a long time",
       created: '2019-10-14T17:00:31-05:00',
       lastUpdated: '2019-10-14T17:00:55-05:00',
       tags : ['work'],
@@ -68,3 +71,4 @@ const tags = [
   ]
 
   export {notes}
+  export {tags}
