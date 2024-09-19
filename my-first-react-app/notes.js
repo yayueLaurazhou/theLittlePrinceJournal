@@ -36,13 +36,13 @@ const tags = [
     }
   ]
   
-  const notes = [
+  const initialNotes = [
     {
       id: 'e0196fd9-d644-4ca8-aa58-467b8082993e',
       title:
         'How Strings are Indexed',
       body: "String are very very important",  
-      tags: ['personal', 'development'],
+      tags: ['personal', 'development', 'goals'],
       category: "folder1",
       pinned: false
     },
@@ -68,7 +68,18 @@ const tags = [
       category: 'folder2',
       pinned: true,
     },
-  ]
+    {
+      id: 'a4c5ea72-34ed-496d-aa90-096df7e1fe3f3d3',
+      title:
+        "How to create a crepe?",
+      body: "This is a recipe from BBC chanel",
+      created: '2019-10-14T17:00:31-05:00',
+      lastUpdated: '2019-10-14T17:00:55-05:00',
+      tags : ['recipes'],
+      category: 'folder2',
+      pinned: false,
+    },
+  ] 
 
-  export {notes}
+  export {initialNotes}
   export {tags}
