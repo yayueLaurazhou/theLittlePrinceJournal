@@ -1,26 +1,26 @@
 const tags = [
     {
-      id: 'goals',
+      num: 1,
       name: 'goals',
     },
     {
-      id: 'health',
+      num: 1,
       name: 'health',
     },
     {
-      id: 'design',
+      num: 1,
       name: 'design',
     },
     {
-      id: 'development',
+      num: 2,
       name: 'development',
     },
     {
-      id: 'personal',
+      num: 6,
       name: 'personal',
     },
     {
-      id: 'recipes',
+      num: 12,
       name: 'recipes',
     },
   ]

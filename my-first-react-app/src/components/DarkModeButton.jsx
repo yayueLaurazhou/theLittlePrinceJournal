@@ -9,7 +9,7 @@ export default function DarkModeButton({isDark, toggleDark}){
     </svg>
   
     return(
-        <button className="w-20 h-10 rounded-full bg-white items-center transition duration-300 focus:outline-none shadow "
+        <button className="ml-40 w-20 h-10 rounded-full bg-white items-center transition duration-300 focus:outline-none shadow"
             onClick={toggleDark}>
             <div className= {`w-12 h-12 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 p-1 text-white ${isDark ? 'bg-gray-700': 'bg-yellow-500'} ${isDark ? 'translate-x-full': '-translate-x-2'}`}>
                 {isDark ? darkIcon : lightIcon}
