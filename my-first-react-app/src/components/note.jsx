@@ -1,5 +1,9 @@
-export default function Note({posts, setNotes}){
+import { useContext } from "react";
+import { NotesContext } from "../pages/NotesPage";
 
+export default function Note(){
+    const {posts, setNotes} = useContext(NotesContext);
+    
     const handleDoubleClick = (index) => {
         const updatedNotes = [...posts];
         updatedNotes[index].pinned = !updatedNotes[index].pinned;
