@@ -1,4 +1,8 @@
-export default function TagsFilter({tags, handleFilterButtonClick, selectedFilters}){
+import { useContext} from "react";
+import { NotesContext } from "../pages/NotesPage";
+
+export default function TagsFilter(){
+    const {tags, handleFilterButtonClick, selectedFilters} = useContext(NotesContext);
     return(
       <div className="flex flex-col items-start">
         {tags?.sort((a, b) => b.num - a.num).map((tag, idx) => (

@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { NotesContext } from "../pages/NotesPage";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Note(){
-    const {posts, setNotes} = useContext(NotesContext);
-    
+    const {posts, setNotes, notes} = useContext(NotesContext);
+    const location = useLocation(); 
+
     const handleDoubleClick = (index) => {
         const updatedNotes = [...posts];
         updatedNotes[index].pinned = !updatedNotes[index].pinned;
@@ -12,6 +14,11 @@ export default function Note(){
         const unpinnedNotes = updatedNotes.filter(note => !note.pinned);
     
         setNotes([...pinnedNotes, ...unpinnedNotes]);
+    }
+
+
+    const handleDeleteNote = (id) => {
+        setNotes(notes.filter((note) => note.id !== id)); 
     }
     
     return( 
@@ -25,7 +32,7 @@ export default function Note(){
                         <h3>{post?.pinned && '📌'}</h3>
                     </div>
                     <div class="flex flex-wrap">
-                        {post.tags?.map((tag, i) => (
+                        {post.tags?.map((tag, _) => (
                             <div class="border border-gray-800 rounded-full px-3 py-1 mr-2 text-xs flex items-center justify-center">
                                 <p>{tag}</p>
                             </div>
@@ -35,14 +42,17 @@ export default function Note(){
                         <div class="flex items-center justify-center ml-auto">
                             <p class="mr-5 text-sm">March 28, 2023</p>
                             <div class="flex space-x-1.5">
-                                <button class="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
-                                    <svg  xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z"></path>
-                                        <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
-                                        <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
-                                    </svg>
-                                </button>
-                                <button class="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="delete note" role="button">
+                                <Link to={`${location.pathname}/write/${post.id}`}> 
+                                    <button class="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
+                                        <svg  xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z"></path>
+                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                                        </svg>
+                                    </button>
+                                </Link>
+                                <button class="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="delete note" role="button"
+                                    onClick={() => handleDeleteNote(post.id)}>
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                                     </svg>

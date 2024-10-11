@@ -1,22 +1,19 @@
 import {useState, useEffect, createContext} from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { useNavigate, Outlet, useParams, Link } from "react-router-dom";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '@fontsource/nanum-pen-script/400.css'; 
 import Note from "../components/note";
 import TagsFilter from "../components/tagsFilter";
-import DarkModeButton from "../components/DarkModeButton";
+import DarkModeButton from "../components/darkModeButton";
 import SearchBar from "../components/searchBar";
 import RoundButton from "../components/roundButton";
 import Editor from "../components/editor";
-import { tags } from "../../notes";
+import { initialTags } from "../../notes";
 import { initialFolders } from "../../notes";
 import backgroundImagelight from "../../public/light-watercolor-bg.jpg";
 import returnButtonSvg from "../../public/universe-planet-03-svgrepo-com.svg";
 import addButtonSvg from "../../public/hug.png";
-import { useContext } from "react";
 
 
 
@@ -30,30 +27,64 @@ const backgroundStyle = {
 export const NotesContext = createContext();
 
 export default function NotesPage() {
-  const [notes, setNotes] = useState([]);
+  const {folderId} = useParams();
+  const folderIndex = parseInt(folderId, 10);
+  const [notes, setNotes] = useState(() => {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    if (storedFolders && storedFolders[folderIndex].notes) {
+      return storedFolders[folderIndex].notes;
+    } else {
+      return initialFolders[folderIndex].notes;
+    }
+  });
+  const [tags, setTags] = useState(() =>  {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    if (storedFolders && storedFolders[folderIndex].tags) {
+      return storedFolders[folderIndex].tags;
+    } else {
+      return initialTags;
+    }
+  });
   const [date, setDate] = useState(new Date());
   const [isDark, setIsDark] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  const {id} = useParams();
-  const folderIndex = parseInt(id, 10);
+
   const navigate = useNavigate();
 
   const handleReturn = () => {
     navigate("/"); 
   }; 
  
-  // useEffect (() => {
-  //   console.log(initialFolders);
-  //   console.log(id);
-  //   localStorage.setItem('notes', JSON.stringify(initialFolders[folderIndex].notes));
-  // }, [initialFolders,id])
+  useEffect (() => {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    if (!storedFolders) {
+      localStorage.setItem('folders', JSON.stringify(initialFolders));
+    }
+  }, [])
 
   useEffect (() => {
-    const storedNotes = JSON.parse(localStorage.getItem('folders'));
-    setNotes(storedNotes[folderIndex].notes);
-  }, [])
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    setNotes(storedFolders[folderIndex].notes);
+  }, [folderIndex])
+
+  useEffect(() => {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    storedFolders[folderIndex].notes = notes;
+    localStorage.setItem('folders', JSON.stringify(storedFolders));
+  }, [notes]);
+
+  useEffect (() => {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    setTags(storedFolders[folderIndex].tags);
+  }, [folderIndex])
+
+  useEffect(() => {
+    const storedFolders = JSON.parse(localStorage.getItem('folders'));
+    storedFolders[folderIndex].tags = tags;
+    localStorage.setItem('folders', JSON.stringify(storedFolders));
+  }, [tags]);
 
   function filterAndSearchItems() {
     let filteredItems = notes.filter((note) => !note.pinned);
@@ -104,7 +135,7 @@ export default function NotesPage() {
   [isDark]);
 
   return (
-    <NotesContext.Provider value={{posts: filteredItems, setNotes: setNotes}}>
+    <NotesContext.Provider value={{posts: filteredItems, tags, setTags, notes, setNotes, handleFilterButtonClick, selectedFilters}}>
       <div style={backgroundStyle}>
         <section className="flex justify-between">
           <main className="flex-3 mx-6">
@@ -120,10 +151,12 @@ export default function NotesPage() {
             </div>
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             <Calendar onChange={setDate} value={date} />
-            <TagsFilter tags={tags} handleFilterButtonClick={handleFilterButtonClick} selectedFilters={selectedFilters}/>
+            <TagsFilter/>
           </aside>
           <div className="fixed bottom-2 right-6">
-            <RoundButton imgSource={addButtonSvg} isAdd={true}></RoundButton>
+            <Link to={`/folders/${folderId}/write`}>
+              <RoundButton imgSource={addButtonSvg} isAdd={true}></RoundButton>
+            </Link>
           </div>
         </section>
       </div>

@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<FolderPage/>} />
-        <Route path="folders/:id" element={<NotesPage />}>
+        <Route path="folders/:folderId" element={<NotesPage />}>
           <Route index element={<Note />} />
           <Route path="write" element={<Editor />} />
           <Route path="write/:noteId" element={<Editor />} />
