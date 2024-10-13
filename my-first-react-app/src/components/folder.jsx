@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
-import { initialFolders } from "../../notes";
 import { Link } from "react-router-dom";
+import { useFoldersContext } from "../contexts/FoldersContext";
 
-export default function Folder({handleChange, handleDoubleClick, handleKeyDown, isEditing, setIsEditing,folders,setFolders}){
-
+export default function Folder(){
+    const {handleChange, handleDoubleClick, handleKeyDown, state} = useFoldersContext();
     return (
         <div class="container mt-3 grid grid-cols-1 md:grid-cols-2">
-            {folders?.map((folder, i) => (
+            {state.folders?.map((folder, i) => (
                 <div key={i} className="flex flex-col justify-center">
                     <Link to={`folders/${i}`} className="block w-32 h-32">
                         <img src="/folder.svg" class="cursor-pointer w-32 h-32"/>
                     </Link>
-                    {isEditing == i? (
+                    {state.isEditing == i? (
                         <input
                         type="text"
                         value={folder.name}

@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { NotesContext } from "../pages/NotesPage";
 import { Link, useLocation } from "react-router-dom";
+import { useNotesContext } from "../contexts/NotesContext.jsx";
 
 export default function Note(){
-    const {posts, setNotes, notes} = useContext(NotesContext);
+    const {posts, setNotes, notes} = useNotesContext();
     const location = useLocation(); 
 
     const handleDoubleClick = (index) => {

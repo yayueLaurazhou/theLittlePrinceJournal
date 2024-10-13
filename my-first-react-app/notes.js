@@ -26,7 +26,7 @@ const initialTags = [
 
   const initialFolders = [
     {
-      name: 'folder1',
+      name: 'B612',
       notes:  [{
         id: 'fiomfi12300495',
         title:
