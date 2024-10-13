@@ -109,7 +109,7 @@ export function useNoteEditor() {
       body: state.content,
       tags: state.displayTags,
       pinned: false,
-      created: new Date().toISOString(),
+      lastUpdated: new Date().toISOString(),
     };
 
     if (noteId) {

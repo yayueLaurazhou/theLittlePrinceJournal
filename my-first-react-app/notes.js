@@ -32,7 +32,7 @@ const initialTags = [
         title:
           'How Strings are Indexed',
         body: "String are very very important",  
-        created: '2019-10-14T17:01:39-05:00',
+        lastUpdated: '2019-10-14T17:01:39-05:00',
         tags: ['personal', 'goals'],
         pinned: false
       },
@@ -41,7 +41,7 @@ const initialTags = [
         title:
           "Writing a Simple MVC App in Plain JavaScript",
         body: "MVC is a structure used to...",
-        created: '2019-10-14T17:01:39-05:00',
+        lastUpdated: '2019-10-14T17:01:39-05:00',
         tags: ['development', 'design'],
         pinned: false,
       },
@@ -50,7 +50,7 @@ const initialTags = [
         title:
           "I wanted to create and host a Node server",
         body: "This is a project I have been thinking for a long time",
-        created: '2019-10-14T17:00:31-05:00',
+        lastUpdated: '2019-10-14T17:00:31-05:00',
         tags : ['development'],
         pinned: true,
       },
@@ -59,7 +59,7 @@ const initialTags = [
         title:
           "How to create a crepe?",
         body: "This is a recipe from BBC chanel",
-        created: '2019-10-14T17:00:31-05:00',
+        lastUpdated: '2019-10-14T17:00:31-05:00',
         tags : ['recipes', 'health'],
         pinned: false,
       }],

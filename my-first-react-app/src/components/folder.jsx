@@ -16,7 +16,6 @@ export default function Folder(){
                         value={folder.name}
                         onChange={(e) => handleChange(e,i)}
                         onKeyDown={handleKeyDown}
-                        onBlur={() => setIsEditing(-1)} 
                         autoFocus
                         className="border w-32 -mt-3 ml-4"
                         />
