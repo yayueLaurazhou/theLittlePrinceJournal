@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
 import { motion, useAnimation, useScroll, useTransform } from 'framer-motion'
 import { Star, Moon, Sun } from 'lucide-react'
 
-export default function Component() {
+export default function HomePage() {
   const [typedText, setTypedText] = useState('')
   const fullText = "Welcome to The Little Prince's World. It is only with the heart that one can see rightly; what is essential is invisible to the eye."
   const typingSpeed = 150 // milliseconds per character
@@ -24,17 +23,6 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-pink-900 text-white">
-      <header className="fixed top-0 left-0 right-0 bg-black bg-opacity-50 backdrop-blur-md p-4 z-10">
-        <nav>
-          <ul className="flex justify-center space-x-4">
-            <li><a href="#home" className="text-yellow-300 hover:text-yellow-100">Home</a></li>
-            <li><a href="#about" className="text-yellow-300 hover:text-yellow-100">About</a></li>
-            <li><a href="#little-prince" className="text-yellow-300 hover:text-yellow-100">Little Prince</a></li>
-            <li><a href="#contact" className="text-yellow-300 hover:text-yellow-100">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
-
       <main className="pt-16">
         <Section id="home">
           <div className="text-center relative">
@@ -66,13 +54,13 @@ export default function Component() {
               transition={{ duration: 1.5, ease: "easeOut" }}
               className="relative w-64 h-64 mx-auto"
             >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/globe-KW2HfNzrun5QKyhOSoL8V7Q7CLL095.jpeg"
+              {/* <Image
+                src="globe.jpeg"
                 alt="The Little Prince on his planet"
                 layout="fill"
                 objectFit="contain"
                 className="rounded-full"
-              />
+              /> */}
             </motion.div>
           </div>
         </Section>
@@ -89,25 +77,67 @@ export default function Component() {
   )
 }
 
-function Section({ children, id }) {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  })
+// function Section({ children, id }) {
+//   const ref = useRef(null)
+//   const { scrollYProgress } = useScroll({
+//     target: ref,
+//     offset: ["start end", "end start"]
+//   })
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8])
+//   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+//   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8])
+
+//   return (
+//     <motion.section
+//       id={id}
+//       ref={ref}
+//       style={{ opacity, scale }}
+//       className="min-h-screen flex items-center justify-center p-8"
+//     >
+//       {children}
+//     </motion.section>
+//   )
+// }
+
+function Section({ children, id }) {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        threshold: 0.1
+      }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current)
+      }
+    }
+  }, [])
 
   return (
-    <motion.section
+    <section
       id={id}
       ref={ref}
-      style={{ opacity, scale }}
-      className="min-h-screen flex items-center justify-center p-8"
+      className={`min-h-screen flex items-center justify-center transition-opacity duration-1000 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
     >
-      {children}
-    </motion.section>
+      <div className={`transform transition-all duration-1000 ${
+        isVisible ? 'translate-y-0' : 'translate-y-20'
+      }`}>
+        {children}
+      </div>
+    </section>
   )
 }
 
@@ -180,13 +210,13 @@ function AnimatedFox() {
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
-      <Image
+      {/* <Image
         src="/placeholder.svg?height=160&width=160"
         alt="Fox illustration"
         width={160}
         height={160}
         className="rounded-full"
-      />
+      /> */}
     </motion.div>
   )
 }

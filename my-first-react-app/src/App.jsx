@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import "./index.css";
 // import NotesPage from "./pages/NotesPage.jsx";
 // import FolderPage from "./pages/FolderPage";
+import HomePage from './pages/HomePage.jsx';
 const NotesPage = lazy(() => import("./pages/NotesPage.jsx"));
 const FolderPage = lazy(() => import("./pages/FolderPage.jsx"));
 import Note from "./components/note.jsx";
@@ -17,7 +18,8 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<SpinnerFullPage />}>
             <Routes>
-              <Route index element={<FolderPage/>} />
+              <Route index element={<HomePage/>} />
+              <Route path="folders" element={<FolderPage/>} />
               <Route path="folders/:folderId" element={<NotesPageWithProvider/>}>
                 <Route index element={<Note />} />
                 <Route path="write" element={<Editor />} />

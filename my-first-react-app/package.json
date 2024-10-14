@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fontsource/nanum-pen-script": "^5.1.0",
+    "framer-motion": "^11.11.8",
+    "lucide-react": "^0.452.0",
     "quill": "^2.0.2",
     "react": "^18.2.0",
     "react-calendar": "^5.0.0",
