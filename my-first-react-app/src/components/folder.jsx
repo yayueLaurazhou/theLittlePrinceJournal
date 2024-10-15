@@ -7,7 +7,7 @@ export default function Folder(){
         <div class="container mt-3 grid grid-cols-1 md:grid-cols-2">
             {state.folders?.map((folder, i) => (
                 <div key={i} className="flex flex-col justify-center">
-                    <Link to={`folders/${i}`} className="block w-32 h-32">
+                    <Link to={`${i}`} className="block w-32 h-32">
                         <img src="/folder.svg" class="cursor-pointer w-32 h-32"/>
                     </Link>
                     {state.isEditing == i? (

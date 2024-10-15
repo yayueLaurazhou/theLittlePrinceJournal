@@ -64,7 +64,7 @@ export default function Note(){
                         <div className="flex space-x-1.5">
                         <Link to={`${location.pathname}/write/${post.id}`}> 
                             <button 
-                            className="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black" 
+                            className="w-8 h-8 rounded-full bg-white dark:bg-black dark:text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black" 
                             aria-label="edit note" 
                             role="button"
                             >
@@ -88,7 +88,7 @@ export default function Note(){
                         </Link>
 
                         <button 
-                            className="w-8 h-8 rounded-full bg-white dark:bg-gray-100 dark:text-gray-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black" 
+                            className="w-8 h-8 rounded-full bg-white dark:bg-black dark:text-white-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black" 
                             aria-label="delete note" 
                             role="button" 
                             onClick={() => handleDeleteNote(post.id)}

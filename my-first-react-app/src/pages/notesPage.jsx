@@ -3,35 +3,37 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '@fontsource/nanum-pen-script/400.css'; 
 import TagsFilter from "../components/tagsFilter";
-import DarkModeButton from "../components/darkModeButton";
+import DarkModeButton from "../components/DarkModeButton";
 import SearchBar from "../components/searchBar";
 import RoundButton from "../components/roundButton";
 import Title from "../components/title";
 import backgroundImagelight from "../../public/light-watercolor-bg.jpg";
+import backgroundImageDark from "../../public/dark-bg.jpg";
 import returnButtonSvg from "../../public/universe-planet-03-svgrepo-com.svg";
 import addButtonSvg from "../../public/hug.png";
 import { useNotesContext } from "../contexts/NotesContext";
 
-const backgroundStyle = {
-  backgroundImage: `url(${backgroundImagelight})`,
-  backgroundSize: 'cover', 
-  backgroundRepeat: 'repeat',
-  backgroundPosition: 'center'
-};
-
 export default function NotesPage() {
-    const {folderId} = useNotesContext();
+    const {folderId, isDark} = useNotesContext();
     const navigate = useNavigate();
   
     const handleReturn = () => {
-      navigate("/"); 
+      navigate("/folders"); 
+    };
+
+    const backgroundStyle = {
+      backgroundImage: `url(${isDark ? backgroundImageDark : backgroundImagelight})`,
+      backgroundSize: 'cover', 
+      backgroundRepeat: 'repeat',
+      backgroundPosition: 'center',
+      minHeight: '100vh'
     };
   
     return (
         <div style={backgroundStyle}>
           <section className="flex justify-between">
             <main className="flex-3 mx-6">
-              <Title/>
+              <Title isDark={isDark}/>
               <Outlet />
             </main>
             <aside className="flex-2 mt-8 mr-6">

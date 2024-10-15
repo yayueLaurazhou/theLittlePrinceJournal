@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import '@fontsource/nanum-pen-script/400.css'; 
 import Note from "../components/note";
 import TagsFilter from "../components/tagsFilter";
-import DarkModeButton from "../components/darkModeButton";
+import DarkModeButton from "../components/DarkModeButton";
 import SearchBar from "../components/searchBar";
 import RoundButton from "../components/roundButton";
 import Editor from "../components/editor_v1";
