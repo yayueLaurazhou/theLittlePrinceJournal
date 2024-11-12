@@ -27,10 +27,13 @@ export default function EmojiSelector() {
 
 
     const handleClick = (id) => {
+      
+      if (!clickCounts.current[id]) {
+        clickCounts.current[id] = 0;
+      }
 
       clickCounts.current[id]++;
       totalVisits.current++;
-
 
       localStorage.setItem('clickCounts', JSON.stringify(clickCounts.current));
       localStorage.setItem('totalVisits', JSON.stringify(totalVisits.current));
