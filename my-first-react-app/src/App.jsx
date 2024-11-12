@@ -1,9 +1,7 @@
 import { Routes, Route, BrowserRouter, useParams } from 'react-router-dom';
 import { lazy, Suspense } from "react";
 import "./index.css";
-// import NotesPage from "./pages/NotesPage.jsx";
-// import FolderPage from "./pages/FolderPage";
-import HomePage from './pages/HomePage.jsx';
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
 const NotesPage = lazy(() => import("./pages/NotesPage.jsx"));
 const FolderPage = lazy(() => import("./pages/FolderPage.jsx"));
 import Note from "./components/note.jsx";
