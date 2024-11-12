@@ -5,7 +5,7 @@ const HomePage = lazy(() => import("./pages/HomePage.jsx"));
 const NotesPage = lazy(() => import("./pages/NotesPage.jsx"));
 const FolderPage = lazy(() => import("./pages/FolderPage.jsx"));
 import Note from "./components/note.jsx";
-import Editor from "./components/editor.jsx"
+import Editor from "./components/editor.jsx";
 import SpinnerFullPage from './components/SpinnerFullPage.jsx';
 import { NotesProvider } from './contexts/NotesContext.jsx';
 import { FoldersProvider } from './contexts/FoldersContext.jsx';
